@@ -1,0 +1,41 @@
+{
+  "name": "Raafat Turki",
+  "role": "Sr Software Dev",
+  "location": "Remote",
+  "status": "Open for contracts",
+  "email": "raafat.turki@proton.me",
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/yourname" },
+    { "label": "LinkedIn", "url": "https://linkedin.com/in/yourname" }
+  ],
+  "stats": [
+    { "label": "Years", "value": "11+" },
+    { "label": "Uptime", "value": "99.98%" }
+  ],
+  "manifesto": [
+    "Treat uptime like a feature, not a promise.",
+    "Prefer sharp logs to vague dashboards.",
+    "Automate the boring, document the terrifying.",
+    "Always leave a rollback path."
+  ],
+  "projects": [
+    {
+      "name": "Ledgerline",
+      "status": "Live",
+      "stack": "Go + Postgres + Kafka",
+      "link": "https://example.com"
+    },
+    {
+      "name": "Gatekeeper",
+      "status": "Scaling",
+      "stack": "Rust + Redis + OpenTelemetry",
+      "link": "https://example.com"
+    },
+    {
+      "name": "Nightwatch",
+      "status": "Beta",
+      "stack": "Node + Postgres + Slack",
+      "link": "https://example.com"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "title": "Cold Start: Surviving a 600ms Budget",
+      "date": "2024-08-18",
+      "summary": "Profiling gRPC startup paths, trimming init, and caching the hot routes.",
+      "link": "/blog/cold-start"
+    },
+    {
+      "title": "The Night We Lost the Queue",
+      "date": "2024-07-04",
+      "summary": "A Kafka retention misfire and the five-step recovery plan that followed.",
+      "link": "/blog/queue-loss"
+    },
+    {
+      "title": "Schema Lock: Shipping Without Fear",
+      "date": "2024-06-12",
+      "summary": "A minimal downtime migration strategy with guardrails for every deploy.",
+      "link": "/blog/schema-lock"
+    }
+  ]
+}
