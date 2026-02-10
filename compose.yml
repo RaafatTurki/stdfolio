@@ -1,0 +1,12 @@
+services:
+  stdfolio:
+    container_name: stdfolio
+    build: .
+    ports:
+      - "4173:4173"
+    environment:
+      NODE_ENV: production
+
+networks:
+  proxy:
+    external: true
