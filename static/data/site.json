@@ -1,41 +1,36 @@
 {
   "name": "Raafat Turki",
-  "role": "Sr Software Dev",
-  "location": "Remote",
-  "status": "Open for contracts",
-  "email": "raafat.turki@proton.me",
+  "role": "Senior Backend Engineer - Technical Lead",
+  "location": "Baghdad, Iraq - Sakarya, Turkey",
+  "status": "Backend delivery, data systems, and integrations",
+  "email": "raafat.turki@pm.me",
   "links": [
-    { "label": "GitHub", "url": "https://github.com/yourname" },
-    { "label": "LinkedIn", "url": "https://linkedin.com/in/yourname" }
+    { "label": "GitHub", "url": "https://github.com/raafatturki" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/raafaturki" },
+    { "label": "Email", "url": "mailto:raafat.turki@pm.me" }
   ],
   "stats": [
-    { "label": "Years", "value": "11+" },
-    { "label": "Uptime", "value": "99.98%" }
+    { "label": "Citizens covered", "value": "~44M" },
+    { "label": "Peak concurrency", "value": "~1M users" },
+    { "label": "Records processed", "value": "~160M in <30s" },
+    { "label": "Reporting cadence", "value": "Every 4 hours" }
   ],
   "manifesto": [
-    "Treat uptime like a feature, not a promise.",
-    "Prefer sharp logs to vague dashboards.",
-    "Automate the boring, document the terrifying.",
-    "Always leave a rollback path."
+    "Lead backend delivery from stakeholder scope through production rollout.",
+    "Build high-volume systems around PostgreSQL, Redis, RabbitMQ, and Linux.",
+    "Design third-party integrations with clear adapters and stable contracts.",
+    "Plan, review, mentor, and ship with small engineering teams."
   ],
   "projects": [
     {
-      "name": "Ledgerline",
-      "status": "Live",
-      "stack": "Go + Postgres + Kafka",
-      "link": "https://example.com"
+      "name": "Al-Tamweniya",
+      "status": "Nationwide e-government ration distribution platform",
+      "link": "https://ht.iq"
     },
     {
-      "name": "Gatekeeper",
-      "status": "Scaling",
-      "stack": "Rust + Redis + OpenTelemetry",
-      "link": "https://example.com"
-    },
-    {
-      "name": "Nightwatch",
-      "status": "Beta",
-      "stack": "Node + Postgres + Slack",
-      "link": "https://example.com"
+      "name": "Tajwaal",
+      "status": "NDC airline managment platform",
+      "link": "https://tajwaal.com"
     }
   ]
 }

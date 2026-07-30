@@ -37,7 +37,7 @@ const year = new Date().getFullYear()
 
 
     <div class="intro-status">
-      <span class="status mono">EMAIL: {email}</span>
+      <a class="status mono" href={`mailto:${email}`}>EMAIL: {email}</a>
     </div>
   </section>
 
@@ -52,7 +52,7 @@ const year = new Date().getFullYear()
           <div class="projects-name">
             {(project.name ?? 'untitled')}
           </div>
-          <div class="projects-meta">{project.stack} • {project.status}</div>
+          <div class="projects-meta">{project.status}</div>
           <a
             class="projects-link"
             href={project.link}
@@ -60,7 +60,7 @@ const year = new Date().getFullYear()
             rel="noreferrer"
             aria-label={`Inspect ${(project?.name ?? 'project').toString()}`}
           >
-            Inspect →
+            Visit →
           </a>
         </li>
       {/each}
@@ -89,35 +89,34 @@ const year = new Date().getFullYear()
     </ul>
   </section>
 
-  <section class="terminal reveal" style="--delay: 0.28s" aria-labelledby="system-logs-title">
-    <h2 id="system-logs-title" class="terminal-header">SYSTEM_LOGS // PROJECT_MANIFEST</h2>
-    <div class="terminal-grid">
-      <div>
-        <h3 class="terminal-label">// ARCHITECTURE_PRINCIPLES</h3>
-        <ul class="terminal-list">
-          {#each manifesto as line}
-            <li>{line}</li>
-          {/each}
-        </ul>
-      </div>
-      <div>
-        <h3 class="terminal-label">// PERFORMANCE_METRICS</h3>
-        <ul class="terminal-list">
-          {#each stats as stat}
-            <li>{stat.label}: {stat.value}</li>
-          {/each}
-        </ul>
-      </div>
-    </div>
-  </section>
+  <!-- <section class="terminal reveal" style="--delay: 0.28s" aria-labelledby="system-logs-title"> -->
+    <!-- <h2 id="system-logs-title" class="terminal-header">SYSTEM_LOGS // PROJECT_MANIFEST</h2> -->
+    <!-- <div class="terminal-grid"> -->
+    <!--   <div> -->
+    <!--     <h3 class="terminal-label">// ARCHITECTURE_PRINCIPLES</h3> -->
+    <!--     <ul class="terminal-list"> -->
+    <!--       {#each manifesto as line} -->
+    <!--         <li>{line}</li> -->
+    <!--       {/each} -->
+    <!--     </ul> -->
+    <!--   </div> -->
+    <!--   <div> -->
+    <!--     <h3 class="terminal-label">// PERFORMANCE_METRICS</h3> -->
+    <!--     <ul class="terminal-list"> -->
+    <!--       {#each stats as stat} -->
+    <!--         <li>{stat.label}: {stat.value}</li> -->
+    <!--       {/each} -->
+    <!--     </ul> -->
+    <!--   </div> -->
+    <!-- </div> -->
+  <!-- </section> -->
 
   <footer id="connect" class="footer reveal" style="--delay: 0.34s">
-    <div>© {year} {name}. All rights reserved.</div>
+    <div>{year} {name}. I make computers do stuff.</div>
     <nav class="footer-links" aria-label="Footer">
       {#each links as link}
         <a href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
       {/each}
     </nav>
-    <div class="mono">EMAIL: {email}</div>
   </footer>
 </main>

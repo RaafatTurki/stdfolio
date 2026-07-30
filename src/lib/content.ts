@@ -11,7 +11,6 @@ export type Stat = {
 export type Project = {
   name?: string
   status?: string
-  stack?: string
   link?: string
 }
 
@@ -74,10 +73,9 @@ const parseProject = (value: unknown): Project | undefined => {
   if (!isRecord(value)) return undefined
   const name = asString(value.name)
   const status = asString(value.status)
-  const stack = asString(value.stack)
   const link = asString(value.link)
-  if (!name && !status && !stack && !link) return undefined
-  return { name, status, stack, link }
+  if (!name && !status && !link) return undefined
+  return { name, status, link }
 }
 
 const parsePost = (value: unknown): Post | undefined => {
