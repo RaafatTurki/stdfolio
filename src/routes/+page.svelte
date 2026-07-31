@@ -91,27 +91,14 @@ const year = new Date().getFullYear()
     </ul>
   </section>
 
-  <!-- <section class="terminal reveal" style="--delay: 0.28s" aria-labelledby="system-logs-title"> -->
-    <!-- <h2 id="system-logs-title" class="terminal-header">SYSTEM_LOGS // PROJECT_MANIFEST</h2> -->
-    <!-- <div class="terminal-grid"> -->
-    <!--   <div> -->
-    <!--     <h3 class="terminal-label">// ARCHITECTURE_PRINCIPLES</h3> -->
-    <!--     <ul class="terminal-list"> -->
-    <!--       {#each manifesto as line} -->
-    <!--         <li>{line}</li> -->
-    <!--       {/each} -->
-    <!--     </ul> -->
-    <!--   </div> -->
-    <!--   <div> -->
-    <!--     <h3 class="terminal-label">// PERFORMANCE_METRICS</h3> -->
-    <!--     <ul class="terminal-list"> -->
-    <!--       {#each stats as stat} -->
-    <!--         <li>{stat.label}: {stat.value}</li> -->
-    <!--       {/each} -->
-    <!--     </ul> -->
-    <!--   </div> -->
-    <!-- </div> -->
-  <!-- </section> -->
+  <section class="terminal reveal" style="--delay: 0.28s" aria-labelledby="system-logs-title">
+    <h2 id="system-logs-title" class="terminal-header">SYSTEM_LOGS // PROJECT_MANIFEST</h2>
+    <p class="terminal-note">
+      This portfolio is a self-developed project. Its content is fully represented as JSON data and rendered by
+      the site.
+      <a href="https://github.com/RaafatTurki/stdfolio" target="_blank" rel="noreferrer">View source</a>
+    </p>
+  </section>
 
   <footer id="connect" class="footer reveal" style="--delay: 0.34s">
     <div>{year} {name}. I make computers do stuff.</div>
