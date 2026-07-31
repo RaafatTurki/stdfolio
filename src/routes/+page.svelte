@@ -12,6 +12,7 @@ const stats = site?.stats ?? []
 const role = site?.role ?? 'Title'
 const name = site?.name ?? 'Anon'
 const email = site?.email ?? 'hello@domain.dev'
+const resumeLink = site?.resume_link ?? 'https://resume.raafat.io'
 const year = new Date().getFullYear()
 </script>
 
@@ -38,6 +39,7 @@ const year = new Date().getFullYear()
 
     <div class="intro-status">
       <a class="status mono" href={`mailto:${email}`}>EMAIL: {email}</a>
+      <a class="status mono" href={resumeLink} target="_blank" rel="noreferrer">RESUME</a>
     </div>
   </section>
 

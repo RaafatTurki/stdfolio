@@ -20,6 +20,7 @@ export type SiteData = {
   location?: string
   status?: string
   email?: string
+  resume_link?: string
   links?: Link[]
   stats?: Stat[]
   manifesto?: string[]
@@ -96,6 +97,7 @@ export const parseSiteData = (value: unknown): SiteData | null => {
     location: asString(value.location),
     status: asString(value.status),
     email: asString(value.email),
+    resume_link: asString(value.resume_link),
     links: asArray(value.links, parseLink),
     stats: asArray(value.stats, parseStat),
     manifesto: asStringArray(value.manifesto),
