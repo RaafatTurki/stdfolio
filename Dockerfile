@@ -9,11 +9,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json bun.lock ./
 COPY . .
-RUN bun run build
+RUN bunx svelte-kit sync && bun run build
 
-FROM oven/bun:1 AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=build /app ./
-EXPOSE 4173
-CMD ["bun","run","preview","--host","0.0.0.0","--port","4173"]
+FROM caddy:2 AS runner
+COPY --from=build /app/build /usr/share/caddy
+EXPOSE 80

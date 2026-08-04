@@ -1,12 +1,11 @@
 services:
   stdfolio:
+    image: stdfolio:latest
     container_name: stdfolio
     build: .
     restart: unless-stopped
     expose:
-      - "4173"
-    environment:
-      NODE_ENV: production
+      - "80"
     networks:
       - proxy
 

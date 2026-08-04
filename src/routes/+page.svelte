@@ -3,20 +3,23 @@ import type { PageData } from './$types'
 
 let { data }: { data: PageData } = $props()
 
-const site = data.site
-const posts = data.posts.posts
-const projects = site?.projects ?? []
-const links = site?.links ?? []
-const manifesto = site?.manifesto ?? []
-const stats = site?.stats ?? []
-const role = site?.role ?? 'Title'
-const name = site?.name ?? 'Anon'
-const email = site?.email ?? 'hello@domain.dev'
-const resumeLink = site?.resume_link ?? 'https://resume.raafat.io'
+const site = $derived(data.site)
+const posts = $derived(data.posts.posts)
+const projects = $derived(site?.projects ?? [])
+const links = $derived(site?.links ?? [])
+const manifesto = $derived(site?.manifesto ?? [])
+const stats = $derived(site?.stats ?? [])
+const role = $derived(site?.role ?? 'Title')
+const name = $derived(site?.name ?? 'Anon')
+const email = $derived(site?.email ?? 'hello@domain.dev')
+const resumeLink = $derived(site?.resume_link ?? 'https://resume.raafat.io')
 const year = new Date().getFullYear()
 
-function emailMunger(email) {
-  return email.replace(/\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g, (_, local, domain) => `${local} [at] ${domain.replaceAll(".", " [dot] ")}`)
+function emailMunger(email: string) {
+  return email.replace(
+    /\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g,
+    (_: string, local: string, domain: string) => `${local} [at] ${domain.replaceAll(".", " [dot] ")}`
+  )
 }
 
 </script>
