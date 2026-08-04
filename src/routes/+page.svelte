@@ -14,6 +14,11 @@ const name = site?.name ?? 'Anon'
 const email = site?.email ?? 'hello@domain.dev'
 const resumeLink = site?.resume_link ?? 'https://resume.raafat.io'
 const year = new Date().getFullYear()
+
+function emailMunger(email) {
+  return email.replace(/\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g, (_, local, domain) => `${local} [at] ${domain.replaceAll(".", " [dot] ")}`)
+}
+
 </script>
 
 <a class="skip-link" href="#intro">Skip to content</a>
@@ -38,7 +43,7 @@ const year = new Date().getFullYear()
 
 
     <div class="intro-status">
-      <a class="status mono" href={`mailto:${email}`}>EMAIL: {email}</a>
+      <a class="status mono" href={`mailto:${email}`}>EMAIL: {emailMunger(email)}</a>
       <a class="status mono" href={resumeLink} target="_blank" rel="noreferrer">RESUME</a>
     </div>
   </section>
