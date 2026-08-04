@@ -1,0 +1,12 @@
+.git
+.agents
+.codex
+.svelte-kit
+node_modules
+
+.env
+.env.*
+
+Dockerfile
+compose.yml
+README.md
