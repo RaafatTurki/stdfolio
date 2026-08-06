@@ -1,3 +1,5 @@
+@import url('https://B4T3S.github.io/Fallout4TerminalTheme/css/crtEffect.css');
+
 :root {
   --bg: #050505;
   --bg-soft: #0a0a0a;
@@ -31,16 +33,16 @@ body {
   color: var(--ink);
   background-color: var(--bg);
   background-image:
-    radial-gradient(circle at top, rgba(67, 255, 106, 0.08), transparent 55%),
-    repeating-linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.04) 1px,
-    transparent 1px,
-    transparent 4px
-    );
+  radial-gradient(circle at top, rgba(67, 255, 106, 0.08), transparent 55%);
   min-height: 100vh;
 }
+/* repeating-linear-gradient( */
+/* 180deg, */
+/* rgba(255, 255, 255, 0.04), */
+/* rgba(255, 255, 255, 0.04) 1px, */
+/* transparent 1px, */
+/* transparent 4px */
+/* ); */
 
 a {
   color: inherit;
