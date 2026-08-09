@@ -25,6 +25,10 @@ function emailMunger(email: string) {
 
 </script>
 
+<svelte:head>
+  <title>{name}</title>
+</svelte:head>
+
 <a class="skip-link" href="#intro">Skip to content</a>
 <main class="page">
   <header class="top-bar reveal" style="--delay: 0.05s">
