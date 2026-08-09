@@ -1,6 +1,6 @@
 {
   "name": "Raafat Turki",
-  "role": "Senior Backend Engineer - Technical Lead",
+  "role": "Technical Lead - Senior Backend Engineer",
   "location": "Baghdad, Iraq - Sakarya, Turkey",
   "status": "Backend delivery, data systems, and integrations",
   "email": "raafat.turki@pm.me",
@@ -22,16 +22,40 @@
     "Design third-party integrations with clear adapters and stable contracts.",
     "Plan, review, mentor, and ship with small engineering teams."
   ],
+  "tech": {
+    "TypeScript": "https://www.typescriptlang.org",
+    "ASP.NET": "https://dotnet.microsoft.com/apps/aspnet",
+    "Go": "https://go.dev",
+    "Bun": "https://bun.sh",
+    "Postgres": "https://www.postgresql.org",
+    "Redis": "https://redis.io",
+    "AWS": "https://aws.amazon.com",
+    "OCI": "https://www.oracle.com/cloud",
+    "DigitalOcean": "https://www.digitalocean.com",
+    "NDC": "https://www.iata.org/en/programs/airline-distribution/retailing/ndc",
+    "Self-Hosted Linux": "https://www.kernel.org",
+    "Svelte": "https://svelte.dev",
+    "WebSocket": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+    "Docker": "https://www.docker.com"
+  },
   "projects": [
     {
       "name": "Al-Tamweniya",
-      "status": "Nationwide e-government ration distribution platform",
-      "link": "https://ht.iq"
+      "desc": "Nationwide e-government ration distribution platform",
+      "link": "https://ht.iq",
+      "stack": ["TypeScript", "ASP.NET", "Go", "Bun", "Postgres", "Redis", "Docker", "AWS", "OCI", "DigitalOcean"]
     },
     {
       "name": "Tajwaal",
-      "status": "NDC airline managment platform",
-      "link": "https://tajwaal.com"
+      "desc": "NDC airline managment platform",
+      "link": "https://tajwaal.com",
+      "stack": ["TypeScript", "Postgres", "Redis", "NDC", "Self-Hosted Linux"]
+    },
+    {
+      "name": "Coup",
+      "desc": "An online multiplayer realtime coup game",
+      "link": "https://coup.raafat.io",
+      "stack": ["Svelte", "TypeScript", "Bun", "Docker", "WebSocket"]
     }
   ]
 }

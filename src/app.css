@@ -165,13 +165,19 @@ textarea {
 
 .status {
   padding: 6px 12px;
+  border: 1px solid rgba(67, 255, 106, 0.24);
   text-transform: uppercase;
   letter-spacing: 0.14em;
   font-size: 0.7rem;
   color: var(--accent);
   background: rgba(67, 255, 106, 0.08);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
+.status:hover {
+  border-color: rgba(67, 255, 106, 0.7);
+  background: rgba(67, 255, 106, 0.12);
+}
 
 .section-header {
   display: flex;
@@ -203,7 +209,7 @@ textarea {
 
 .projects-item {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(130px, 0.8fr) minmax(220px, 1.4fr) minmax(180px, 1fr);
   gap: 12px;
   align-items: center;
   padding: 14px 0;
@@ -211,25 +217,63 @@ textarea {
 }
 
 .projects-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  width: fit-content;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
 }
 
-.projects-meta {
+.projects-name span {
+  color: var(--accent);
+  font-size: 0.75em;
+  transition: transform 0.15s ease;
+}
+
+.projects-name:hover span {
+  transform: translate(2px, -2px);
+}
+
+.projects-desc {
   color: var(--muted);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.projects-link {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--muted);
+.projects-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  list-style: none;
 }
 
+.projects-stack li {
+  display: flex;
+}
+
+.projects-stack a,
+.projects-stack span {
+  padding: 2px 6px;
+  border: 1px solid rgba(67, 255, 106, 0.24);
+  color: var(--accent);
+  background: rgba(67, 255, 106, 0.05);
+  font-size: 0.58rem;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.projects-stack a {
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.projects-stack a:hover {
+  border-color: rgba(67, 255, 106, 0.7);
+  background: rgba(67, 255, 106, 0.12);
+}
 
 .blogs {
   display: grid;

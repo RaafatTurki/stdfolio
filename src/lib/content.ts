@@ -10,8 +10,9 @@ export type Stat = {
 
 export type Project = {
   name?: string
-  status?: string
+  desc?: string
   link?: string
+  stack?: string[]
 }
 
 export type SiteData = {
@@ -24,6 +25,7 @@ export type SiteData = {
   links?: Link[]
   stats?: Stat[]
   manifesto?: string[]
+  tech?: Record<string, string>
   projects?: Project[]
 }
 
@@ -47,6 +49,13 @@ const asString = (value: unknown): string | undefined =>
 const asStringArray = (value: unknown): string[] | undefined => {
   if (!Array.isArray(value)) return undefined
   return value.filter((item): item is string => typeof item === 'string')
+}
+
+const asStringRecord = (value: unknown): Record<string, string> | undefined => {
+  if (!isRecord(value)) return undefined
+  return Object.fromEntries(
+    Object.entries(value).filter((entry): entry is [string, string] => typeof entry[1] === 'string')
+  )
 }
 
 const asArray = <T>(value: unknown, map: (item: unknown) => T | undefined): T[] | undefined => {
@@ -73,10 +82,11 @@ const parseStat = (value: unknown): Stat | undefined => {
 const parseProject = (value: unknown): Project | undefined => {
   if (!isRecord(value)) return undefined
   const name = asString(value.name)
-  const status = asString(value.status)
+  const desc = asString(value.desc)
   const link = asString(value.link)
-  if (!name && !status && !link) return undefined
-  return { name, status, link }
+  const stack = asStringArray(value.stack)
+  if (!name && !desc && !link && !stack?.length) return undefined
+  return { name, desc, link, stack }
 }
 
 const parsePost = (value: unknown): Post | undefined => {
@@ -101,6 +111,7 @@ export const parseSiteData = (value: unknown): SiteData | null => {
     links: asArray(value.links, parseLink),
     stats: asArray(value.stats, parseStat),
     manifesto: asStringArray(value.manifesto),
+    tech: asStringRecord(value.tech),
     projects: asArray(value.projects, parseProject)
   }
 }

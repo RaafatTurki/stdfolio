@@ -6,6 +6,7 @@ let { data }: { data: PageData } = $props()
 const site = $derived(data.site)
 const posts = $derived(data.posts.posts)
 const projects = $derived(site?.projects ?? [])
+const tech = $derived(site?.tech ?? {})
 const links = $derived(site?.links ?? [])
 const manifesto = $derived(site?.manifesto ?? [])
 const stats = $derived(site?.stats ?? [])
@@ -46,7 +47,7 @@ function emailMunger(email: string) {
 
 
     <div class="intro-status">
-      <a class="status mono" href={`mailto:${email}`}>EMAIL: {emailMunger(email)}</a>
+      <a class="status mono" href={`mailto:${email}`}>{email}</a>
       <a class="status mono" href={resumeLink} target="_blank" rel="noreferrer">RESUME</a>
     </div>
   </section>
@@ -59,19 +60,37 @@ function emailMunger(email: string) {
     <ol class="projects-list">
       {#each projects as project, i}
         <li class="projects-item">
-          <div class="projects-name">
-            {(project.name ?? 'untitled')}
-          </div>
-          <div class="projects-meta">{project.status}</div>
           <a
-            class="projects-link"
+            class="projects-name"
             href={project.link}
             target="_blank"
             rel="noreferrer"
-            aria-label={`Inspect ${(project?.name ?? 'project').toString()}`}
+            aria-label={`Visit ${(project.name ?? 'project').toString()}`}
           >
-            Visit →
+            {(project.name ?? 'untitled')}
+            <span aria-hidden="true">↗</span>
           </a>
+          <div class="projects-desc">{project.desc}</div>
+          {#if project.stack?.length}
+            <ul class="projects-stack" aria-label={`${project.name ?? 'Project'} tech stack`}>
+              {#each project.stack as technology}
+                <li>
+                  {#if tech[technology]}
+                    <a
+                      href={tech[technology]}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${technology} website (opens in a new tab)`}
+                    >{technology}</a>
+                  {:else}
+                    <span>{technology}</span>
+                  {/if}
+                </li>
+              {/each}
+            </ul>
+          {:else}
+            <div></div>
+          {/if}
         </li>
       {/each}
     </ol>
