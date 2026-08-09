@@ -41,21 +41,21 @@
   "projects": [
     {
       "name": "Al-Tamweniya",
-      "desc": "Nationwide e-government ration distribution platform",
+      "desc": "Nationwide e-gov ration distribution dashboard/app",
       "link": "https://ht.iq",
       "stack": ["TypeScript", "ASP.NET", "Go", "Bun", "Postgres", "Redis", "Docker", "AWS", "OCI", "DigitalOcean"]
     },
     {
       "name": "Tajwaal",
-      "desc": "NDC airline managment platform",
+      "desc": "NDC airline managment dashboard/app",
       "link": "https://tajwaal.com",
       "stack": ["TypeScript", "Postgres", "Redis", "NDC", "Self-Hosted Linux"]
     },
     {
       "name": "Coup",
-      "desc": "An online multiplayer realtime coup game",
+      "desc": "Web realtime multiplayer coup game",
       "link": "https://coup.raafat.io",
-      "stack": ["Svelte", "TypeScript", "Bun", "Docker", "WebSocket"]
+      "stack": ["TypeScript", "Svelte", "Bun", "Docker", "WebSocket"]
     }
   ]
 }
