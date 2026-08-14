@@ -23,8 +23,6 @@ export type SiteData = {
   email?: string
   resume_link?: string
   links?: Link[]
-  stats?: Stat[]
-  manifesto?: string[]
   tech?: Record<string, string>
   projects?: Project[]
 }
@@ -109,8 +107,6 @@ export const parseSiteData = (value: unknown): SiteData | null => {
     email: asString(value.email),
     resume_link: asString(value.resume_link),
     links: asArray(value.links, parseLink),
-    stats: asArray(value.stats, parseStat),
-    manifesto: asStringArray(value.manifesto),
     tech: asStringRecord(value.tech),
     projects: asArray(value.projects, parseProject)
   }

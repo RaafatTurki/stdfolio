@@ -8,8 +8,6 @@ const posts = $derived(data.posts.posts)
 const projects = $derived(site?.projects ?? [])
 const tech = $derived(site?.tech ?? {})
 const links = $derived(site?.links ?? [])
-const manifesto = $derived(site?.manifesto ?? [])
-const stats = $derived(site?.stats ?? [])
 const role = $derived(site?.role ?? 'Title')
 const name = $derived(site?.name ?? 'Anon')
 const email = $derived(site?.email ?? 'hello@domain.dev')
@@ -123,11 +121,16 @@ function emailMunger(email: string) {
   </section>
 
   <section class="terminal reveal" style="--delay: 0.28s" aria-labelledby="system-logs-title">
-    <h2 id="system-logs-title" class="terminal-header">SYSTEM_LOGS // PROJECT_MANIFEST</h2>
+    <h2 id="system-logs-title" class="terminal-header">about this portfolio</h2>
     <p class="terminal-note">
-      This portfolio is a self-developed project. Its content is fully represented as JSON data and rendered by
-      the site.
-      <a href="https://github.com/RaafatTurki/stdfolio" target="_blank" rel="noreferrer">View source</a>
+      This portfolio is a self-developed project.
+      <br>
+      Its content is fully represented as JSON data and rendered by the site.
+      <br>
+      you can view the current live json <a href="https://raafat.io/data/site.json" target="_blank" rel="noreferrer">data here</a>.
+      <br>
+      <br>
+      or the project <a href="https://github.com/RaafatTurki/stdfolio" target="_blank" rel="noreferrer">source code here</a>
     </p>
   </section>
 
