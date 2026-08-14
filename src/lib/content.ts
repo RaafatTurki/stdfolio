@@ -27,17 +27,6 @@ export type SiteData = {
   projects?: Project[]
 }
 
-export type Post = {
-  title?: string
-  date?: string
-  summary?: string
-  link?: string
-}
-
-export type PostsResponse = {
-  posts: Post[]
-}
-
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null
 
@@ -87,16 +76,6 @@ const parseProject = (value: unknown): Project | undefined => {
   return { name, desc, link, stack }
 }
 
-const parsePost = (value: unknown): Post | undefined => {
-  if (!isRecord(value)) return undefined
-  const title = asString(value.title)
-  const date = asString(value.date)
-  const summary = asString(value.summary)
-  const link = asString(value.link)
-  if (!title && !date && !summary && !link) return undefined
-  return { title, date, summary, link }
-}
-
 export const parseSiteData = (value: unknown): SiteData | null => {
   if (!isRecord(value)) return null
   return {
@@ -110,9 +89,4 @@ export const parseSiteData = (value: unknown): SiteData | null => {
     tech: asStringRecord(value.tech),
     projects: asArray(value.projects, parseProject)
   }
-}
-
-export const parsePostsData = (value: unknown): PostsResponse => {
-  if (!isRecord(value)) return { posts: [] }
-  return { posts: asArray(value.posts, parsePost) ?? [] }
 }

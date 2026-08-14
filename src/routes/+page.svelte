@@ -4,7 +4,7 @@ import type { PageData } from './$types'
 let { data }: { data: PageData } = $props()
 
 const site = $derived(data.site)
-const posts = $derived(data.posts.posts)
+const posts = $derived(data.posts)
 const projects = $derived(site?.projects ?? [])
 const tech = $derived(site?.tech ?? {})
 const links = $derived(site?.links ?? [])
@@ -107,10 +107,10 @@ function emailMunger(email: string) {
       {#if posts.length}
         {#each posts as post}
           <li>
-            <a class="blogs-item" href={post.link} target="_blank" rel="noreferrer">
+            <a class="blogs-item" href={`/blog/${post.slug}`}>
               <span class="blogs-date">{post.date}</span>
-              <span class="blogs-title">{post.title}</span>
-              <span class="blogs-summary">{post.summary}</span>
+              <span class="blogs-title">{post.name}</span>
+              <span class="blogs-summary">{post.desc}</span>
             </a>
           </li>
         {/each}

@@ -18,14 +18,34 @@
   overflow-clip-margin: 8px;
 }
 
+html {
+  font-family: 'JetBrains Mono', monospace;
+  scroll-behavior: smooth;
+  scrollbar-color: var(--accent) var(--bg-soft);
+  scrollbar-width: thin;
+}
+
 ::-moz-selection, ::selection {
   color: var(--bg);
   background: var(--accent);
 }
 
-html {
-  scroll-behavior: smooth;
-  font-family: 'JetBrains Mono', monospace;
+::-webkit-scrollbar {
+  width: 0.45rem;
+  height: 0.45rem;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 0.1rem solid var(--bg-soft);
+  background: var(--accent);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink);
 }
 
 body {
