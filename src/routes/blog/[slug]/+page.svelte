@@ -19,6 +19,22 @@
       pre.parentNode?.insertBefore(wrapper, pre)
       wrapper.appendChild(pre)
 
+      const codeEl = pre.querySelector('code')
+      let lang = ''
+      if (codeEl) {
+        const match = codeEl.className.match(/language-([a-zA-Z0-9_-]+)/)
+        if (match && match[1] && match[1] !== 'text' && match[1] !== 'txt' && match[1] !== 'plaintext') {
+          lang = match[1]
+        }
+      }
+
+      if (lang) {
+        const langTag = document.createElement('span')
+        langTag.className = 'code-lang-tag'
+        langTag.textContent = lang.toUpperCase()
+        wrapper.appendChild(langTag)
+      }
+
       const btn = document.createElement('button')
       btn.className = 'code-copy-btn'
       btn.type = 'button'
@@ -35,7 +51,9 @@
       })
 
       wrapper.appendChild(btn)
-      cleanups.push(() => btn.remove())
+      cleanups.push(() => {
+        btn.remove()
+      })
     })
 
     return {

@@ -532,6 +532,21 @@ textarea {
   margin: 12px 0;
 }
 
+.code-lang-tag {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  user-select: none;
+  pointer-events: none;
+  padding: 2px 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--line);
+}
+
 .code-copy-btn {
   position: absolute;
   top: 8px;
@@ -553,6 +568,74 @@ textarea {
   opacity: 1;
   background: rgba(67, 255, 106, 0.12);
   border-color: var(--accent);
+}
+
+/* Syntax Highlighting */
+.hljs {
+  color: var(--ink);
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #768390;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #ff7b72;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-addition {
+  color: #a5d6ff;
+}
+
+.hljs-number,
+.hljs-link {
+  color: #79c0ff;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #ffa657;
+}
+
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #ffa657;
+}
+
+.hljs-function,
+.hljs-title.function_ {
+  color: #d2a8ff;
+}
+
+.hljs-variable,
+.hljs-attr {
+  color: var(--accent);
+}
+
+.hljs-deletion {
+  color: #ffa198;
+  background-color: #490202;
+}
+
+.hljs-doctag,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
 }
 
 
