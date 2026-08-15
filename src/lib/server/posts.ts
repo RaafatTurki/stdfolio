@@ -1,8 +1,15 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
+import { marked } from 'marked'
 
 const POSTS_DIR = path.resolve('static/posts')
+
+// Configure marked
+marked.setOptions({
+  gfm: true,
+  breaks: false
+})
 
 export type PostSummary = {
   slug: string
@@ -13,6 +20,18 @@ export type PostSummary = {
 
 export type Post = PostSummary & {
   content: string
+  html: string
+}
+
+function findPostFile(slug: string): string | null {
+  const extensions = ['.md', '.txt']
+  for (const ext of extensions) {
+    const candidate = path.join(POSTS_DIR, `${slug}${ext}`)
+    if (fs.existsSync(candidate)) {
+      return candidate
+    }
+  }
+  return null
 }
 
 export function getPosts(): PostSummary[] {
@@ -20,25 +39,34 @@ export function getPosts(): PostSummary[] {
     return []
   }
 
-  return fs
-    .readdirSync(POSTS_DIR)
-    .filter((filename) => filename.endsWith('.txt'))
-    .map((filename) => {
-      const slug = path.basename(filename, '.txt')
-      const filepath = path.join(POSTS_DIR, filename)
-      const raw = fs.readFileSync(filepath, 'utf-8')
-      const { data } = matter(raw)
+  const seenSlugs = new Set<string>()
+  const summaries: PostSummary[] = []
 
-      return {
-        slug,
-        name: String(data.name ?? slug),
-        date: String(data.date ?? ''),
-        desc: String(data.desc ?? '')
-      }
+  const files = fs.readdirSync(POSTS_DIR)
+  for (const filename of files) {
+    if (!filename.endsWith('.txt') && !filename.endsWith('.md')) {
+      continue
+    }
+
+    const slug = filename.replace(/\.(txt|md)$/, '')
+    if (seenSlugs.has(slug)) continue
+    seenSlugs.add(slug)
+
+    const filepath = path.join(POSTS_DIR, filename)
+    const raw = fs.readFileSync(filepath, 'utf-8')
+    const { data } = matter(raw)
+
+    summaries.push({
+      slug,
+      name: String(data.name ?? slug),
+      date: String(data.date ?? ''),
+      desc: String(data.desc ?? '')
     })
-    .sort((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime()
-    })
+  }
+
+  return summaries.sort((a, b) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime()
+  })
 }
 
 export function getPost(slug: string): Post | null {
@@ -46,20 +74,21 @@ export function getPost(slug: string): Post | null {
     return null
   }
 
-  const filepath = path.join(POSTS_DIR, `${slug}.txt`)
-
-  if (!fs.existsSync(filepath)) {
+  const filepath = findPostFile(slug)
+  if (!filepath) {
     return null
   }
 
   const raw = fs.readFileSync(filepath, 'utf-8')
   const { data, content } = matter(raw)
+  const html = marked.parse(content) as string
 
   return {
     slug,
     name: String(data.name ?? slug),
     date: String(data.date ?? ''),
     desc: String(data.desc ?? ''),
-    content
+    content,
+    html
   }
 }
