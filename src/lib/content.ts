@@ -3,11 +3,6 @@ export type Link = {
   url?: string
 }
 
-export type Stat = {
-  label?: string
-  value?: string
-}
-
 export type Project = {
   name?: string
   desc?: string
@@ -58,14 +53,6 @@ const parseLink = (value: unknown): Link | undefined => {
   return { label, url }
 }
 
-const parseStat = (value: unknown): Stat | undefined => {
-  if (!isRecord(value)) return undefined
-  const label = asString(value.label)
-  const valueText = asString(value.value)
-  if (!label && !valueText) return undefined
-  return { label, value: valueText }
-}
-
 const parseProject = (value: unknown): Project | undefined => {
   if (!isRecord(value)) return undefined
   const name = asString(value.name)
@@ -90,3 +77,4 @@ export const parseSiteData = (value: unknown): SiteData | null => {
     projects: asArray(value.projects, parseProject)
   }
 }
+
