@@ -1,8 +1,12 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vite';
+import fullreload from 'vite-plugin-full-reload'
 
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [
+    sveltekit(),
+    fullreload(['static/**/*', 'src/**/*'])
+  ],
   build: {
     assetsInlineLimit: Infinity
   },
