@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PageData } from './$types'
+import { copyToClipboard } from '$lib/clipboard'
 
 let { data }: { data: PageData } = $props()
 
@@ -11,20 +12,34 @@ const links = $derived(site?.links ?? [])
 const role = $derived(site?.role ?? 'Title')
 const name = $derived(site?.name ?? 'Anon')
 const email = $derived(site?.email ?? 'hello@domain.dev')
+const status = $derived(site?.status ?? 'Backend delivery, data systems, and integrations')
 const resumeLink = $derived(site?.resume_link ?? 'https://resume.raafat.io')
 const year = new Date().getFullYear()
 
-function emailMunger(email: string) {
-  return email.replace(
-    /\b([A-Za-z0-9._%+-]+)@([A-Za-z0-9.-]+\.[A-Za-z]{2,})\b/g,
-    (_: string, local: string, domain: string) => `${local} [at] ${domain.replaceAll(".", " [dot] ")}`
-  )
-}
+let emailCopied = $state(false)
 
+async function copyEmail() {
+  const success = await copyToClipboard(email)
+  if (success) {
+    emailCopied = true
+    setTimeout(() => {
+      emailCopied = false
+    }, 2000)
+  } else {
+    window.location.href = `mailto:${email}`
+  }
+}
 </script>
 
 <svelte:head>
-  <title>{name}</title>
+  <title>{name} | {role}</title>
+  <meta name="description" content="{name} - {role}. {status}" />
+  <meta property="og:title" content="{name} | {role}" />
+  <meta property="og:description" content="{name} - {role}. {status}" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="{name} | {role}" />
+  <meta name="twitter:description" content="{name} - {role}. {status}" />
 </svelte:head>
 
 <a class="skip-link" href="#intro">Skip to content</a>
@@ -47,9 +62,21 @@ function emailMunger(email: string) {
       </div>
     </dl>
 
-
     <div class="intro-status">
-      <a class="status mono" href={`mailto:${email}`}>{email}</a>
+      <div class="status-split mono">
+        <a class="status-action" href={`mailto:${email}`} title="Open email client">
+          {email}
+        </a>
+        <button
+          class="status-action-btn"
+          type="button"
+          onclick={copyEmail}
+          title="Copy email to clipboard"
+          aria-label="Copy email address"
+        >
+          {emailCopied ? 'COPIED!' : 'COPY'}
+        </button>
+      </div>
       <a class="status mono" href={resumeLink} target="_blank" rel="noreferrer">RESUME</a>
     </div>
   </section>
@@ -90,8 +117,6 @@ function emailMunger(email: string) {
                 </li>
               {/each}
             </ul>
-          {:else}
-            <div></div>
           {/if}
         </li>
       {/each}
