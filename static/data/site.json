@@ -8,7 +8,8 @@
   "links": [
     { "label": "GitHub", "url": "https://github.com/raafatturki" },
     { "label": "LinkedIn", "url": "https://www.linkedin.com/in/raafaturki" },
-    { "label": "Email", "url": "mailto:raafat.turki@proton.me" }
+    { "label": "Email", "url": "mailto:raafat.turki@proton.me" },
+    { "label": "RSS", "url": "/rss.xml" }
   ],
   "tech": {
     "TS": "https://www.typescriptlang.org",

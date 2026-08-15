@@ -127,12 +127,15 @@ async function copyEmail() {
     <header class="section-header">
       <span class="section-index" aria-hidden="true">02</span>
       <h2 id="blogs-title">BLOGS</h2>
+      <a class="status mono rss-badge" href="/rss.xml" target="_blank" rel="noreferrer" title="RSS Feed">
+        RSS
+      </a>
     </header>
     <ul class="blogs-list">
       {#if posts.length}
         {#each posts as post}
           <li>
-            <a class="blogs-item" href={`/blog/${post.slug}`}>
+            <a class="blogs-item" href={`/blog/${post.slug}/`}>
               <span class="blogs-date">{post.date}</span>
               <span class="blogs-title">{post.name}</span>
               <span class="blogs-summary">{post.desc}</span>

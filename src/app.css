@@ -242,12 +242,19 @@ textarea {
 
 .section-header {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 16px;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   font-size: 0.8rem;
   color: var(--muted);
+}
+
+.rss-badge {
+  padding: 2px 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  margin-left: auto;
 }
 
 .section-index {

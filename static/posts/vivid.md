@@ -51,23 +51,23 @@ The P2P architecture brings some advantages to the table:
 
 However, it is a bit more complex to set up than a central media server (e.g. SFU) and has drawbacks:
 
-- **Increased client-side bandwidth use**: Connection count scales with the number of clients in a room ($N$). Total links = $\frac{N(N - 1)}{2}$.
+- **Increased client-side bandwidth use**: Connection count scales with the number of clients in a room (call it `N`) Total links = `N(N - 1)/2`.
 
 ```text
-       P2P FULL MESH                        CENTRAL SFU
+  P2P FULL MESH                      CENTRAL SFU
 
-          Alice                                Alice
-         ╱  │  ╲                                 │
-        ╱   │   ╲                                ▼
-      Bob───┼───Carol                       ┌─────────┐
-        ╲   │   ╱                           │   SFU   │
-         ╲  │  ╱                            └─────────┘
-          Dave                              ╱    │    ╲
-                                           ▼     ▼     ▼
-                                          Bob  Carol  Dave
+                                        Alice
+  ┌──►Alice◄──┐                           ▲
+  │     ▲     │                           │
+  ▼     │     ▼                       ┌───▼───┐
+Dave◄───┼──►Carol             Dave◄──►│  SFU  │◄──►Carol
+  ▲     │     ▲                       └───▲───┘
+  │     ▼     │                           │
+  └──► Bob◄───┘                           ▼
+                                         Bob
 
-      4 users : 6 connections             4 users : 4 connections
-      8 users : 28 connections            8 users : 8 connections
+4 users : 6 connections       4 users : 4 connections
+8 users : 28 connections      8 users : 8 connections
 ```
 
 - **Harder to implement media moderation/recording**: Because media is P2P and end-to-end encrypted, operations that usually require a central server are difficult.
@@ -115,7 +115,7 @@ Bob              Signaling Server        Alice                 STUN             
 ```
 
 > **Note on sequence diagrams:** Sequence diagrams are slightly awkward for ICE because the destination of an ICE check is an IP:PORT represented by one of Alice's ICE candidates, but this illustrates the protocol flow.
-> 
+>
 > TURN and STUN ordering is arbitrary since both are attempted in parallel.
 > `coturn` is the TURN implementation used (VoIP media NAT traversal gateway). While coturn can provide STUN, Vivid uses `stun.cloudflare.com` for STUN resolution.
 
@@ -155,17 +155,17 @@ candidate      candidate      candidate
 Adding a screen share, camera, or microphone can trigger renegotiation. If both peers create an offer at once, Vivid uses the WebRTC **perfect-negotiation** pattern:
 
 ```text
-  Alice changes tracks                 Bob changes tracks
-          │                                   │
-     createOffer()                       createOffer()
-          │                                   │
-          └─────────── collision ─────────────┘
-                           │
-             ┌─────────────┴─────────────┐
-             │ polite peer rolls back    │
-             │ impolite peer ignores     │
-             │ one offer wins cleanly    │
-             └───────────────────────────┘
+Alice changes tracks                 Bob changes tracks
+        │                                   │
+   createOffer()                       createOffer()
+        │                                   │
+        └─────────── collision ─────────────┘
+                         │
+           ┌─────────────┴─────────────┐
+           │ polite peer rolls back    │
+           │ impolite peer ignores     │
+           │ one offer wins cleanly    │
+           └───────────────────────────┘
 ```
 
 The role is deterministic: one peer is polite and one is impolite based on their random peer IDs. The polite side yields, and the impolite side's offer proceeds cleanly.
@@ -173,16 +173,16 @@ The role is deterministic: one peer is polite and one is impolite based on their
 ### 2. ICE Candidates Are Buffered Until SDP Is Ready
 
 ```text
-      ICE candidate arrives
-                │
-  ┌─────────────┴───────────────┐
-  │ remoteDescription present?  │
-  └───┬─────────────────────┬───┘
-     yes                    no
-      │                     │
-  addIceCandidate()   queue candidate
-                            │
-                  flush after offer/answer
+    ICE candidate arrives
+              │
+┌─────────────┴───────────────┐
+│ remoteDescription present?  │
+└───┬─────────────────────┬───┘
+   yes                    no
+    │                     │
+addIceCandidate()   queue candidate
+                          │
+                flush after offer/answer
 ```
 
 Candidate and SDP delivery are asynchronous. Buffering avoids calling `addIceCandidate()` before the remote description establishes the matching ICE context.
@@ -206,18 +206,18 @@ Mesh keeps the server architecture lean, but browser upload, decoding, and CPU s
 ### 5. Independent Server-Side Data Paths
 
 ```text
-                              Hub
-                    ┌──────────────────────┐
-                    │ rooms + chat history │
-                    │ protected by RWMutex │
-                    └────▲─────────────┬───┘
-                         │             │
-                   validate/relay    outbound message
-                         │             │
-  ┌─────────┐      ┌─────┴──────┐    ┌─▼────────────────┐
-  │ Network ├──────► readPump   │    │ buffered channel │
-  │ Socket  ◄──────┤ writePump  ◄────┤ capacity: 256    │
-  └─────────┘      └────────────┘    └──────────────────┘
+                            Hub
+                  ┌──────────────────────┐
+                  │ rooms + chat history │
+                  │ protected by RWMutex │
+                  └────▲─────────────┬───┘
+                       │             │
+                 validate/relay    outbound message
+                       │             │
+┌─────────┐      ┌─────┴──────┐    ┌─▼────────────────┐
+│ Network ├──────► readPump   │    │ buffered channel │
+│ Socket  ◄──────┤ writePump  ◄────┤ capacity: 256    │
+└─────────┘      └────────────┘    └──────────────────┘
 ```
 
 ---
@@ -225,23 +225,23 @@ Mesh keeps the server architecture lean, but browser upload, decoding, and CPU s
 ## Microphone Audio Processing Pipeline
 
 ```text
-  Physical microphone
-        │
-  getUserMedia()
-        │
-  48 kHz AudioContext
-        │
-  RNNoise WASM AudioWorkletNode
-        │
-  ChannelMergerNode (mono ─► left + right)
-        │
-  processed MediaStreamTrack
-        │
-  Web Audio mixer ◄── audio from screen sharing (Chromium single-tab audio)
-        │
-        ├────► RTCRtpSender for Alice
-        ├────► RTCRtpSender for Bob
-        └────► RTCRtpSender for ...
+Physical microphone
+      │
+getUserMedia()
+      │
+48 kHz AudioContext
+      │
+RNNoise WASM AudioWorkletNode
+      │
+ChannelMergerNode (mono ─► left + right)
+      │
+processed MediaStreamTrack
+      │
+Web Audio mixer ◄── audio from screen sharing (Chromium single-tab audio)
+      │
+      ├────► RTCRtpSender for Alice
+      ├────► RTCRtpSender for Bob
+      └────► RTCRtpSender for ...
 ```
 
 > Screensharing video creates its own separate video track per peer using the WebRTC `getDisplayMedia` API and renegotiates a new SDP.
@@ -264,20 +264,20 @@ Docker Compose manages 3 containers:
 3. **TURN server**: coturn
 
 ```text
-  Internet
-   │
-   ▼
-  ┌───────────────────────────────────────┐
-  │ Caddy as an HTTPS / WSS reverse proxy │
-  └─────────────┬─────────────────────────┘
-          ┌─────┴─────┐
-          ▼           ▼
-  ┌───────────┐  ┌─────────────────────┐
-  │ Caddy web │  │ Go signaling server │
-  │ :8000     │  │ :8080               │
-  └───────────┘  └─────────────────────┘
+              Internet
+                 │
+                 ▼
+┌───────────────────────────────────────┐
+│ Caddy as an HTTPS / WSS reverse proxy │
+└────────────────┬──────────────────────┘
+           ┌─────┴─────┐
+           ▼           ▼
+┌───────────┐        ┌─────────────────────┐
+│ Caddy web │        │ Go signaling server │
+│ :8000     │        │ :8080               │
+└───────────┘        └─────────────────────┘
 
-  Browsers ── UDP/STUN/TURN ──► coturn:3478 + relay ports
+Browsers ── UDP/STUN/TURN ──► coturn:3478 + relay ports
 ```
 
 - Multi-stage Docker builds for minimal container size.
