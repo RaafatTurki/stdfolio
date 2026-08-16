@@ -595,8 +595,20 @@ For noise suppression, Vivid uses RNNoise compiled to WebAssembly running inside
 I later switched to [@timephy/rnnoise-wasm](https://www.npmjs.com/package/@timephy/rnnoise-wasm),
 which is a fork which upgrades RNNoise to 0.2 and adds an `AudioWorkletNode`.
 
-Using the library was simpler that expected:
+Plugging it looks something like:
 ```js
+const context = new AudioContextClass({ sampleRate: 48000 })
+await context.audioWorklet.addModule(NoiseSuppressorWorklet)
+const source = context.createMediaStreamSource(new MediaStream([track]))
+
+const processor = new AudioWorkletNode(context, NoiseSuppressorWorklet_Name, { channelCount: 1 })
+
+source.connect(processor)
+processor.connect(merger, 0, 0)
+processor.connect(merger, 0, 1)
+merger.connect(destination)
+
+const processedTrack = destination.stream.getAudioTracks()[0]
 ```
 
 Which would be added as another step in the audio processing pipeline:
